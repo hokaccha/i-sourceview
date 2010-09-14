@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>i-sourceview</title>
+</head>
+<body>
+<h1>i-sourceview Bookmarklet</h1>
+
+<section>
+<h2>iPhone/iPadで登録</h2>
+<ol>
+<li>このページをブックマークする</li>
+<li>ブックマークの編集機能で、URLの先頭の「http://i-sourceview.appspot.com/bm#」を削除し、「javascript:～」から始まるようにする</li>
+</ol>
+</section>
+
+<section>
+<h2>PCのSafariで登録してiPhone/iPadと同期</h2>
+<ol>
+<li>以下のリンクをブックマークする<br />
+<a href="javascript:window.open('http://i-sourceview.appspot.com/?url=' + encodeURIComponent(location.href), '_target')" onclick="alert('右クリックで登録するか、ツールバーにドラッグしてブックマークしてください。');return false;">i-sourceview bookmarklet</a></li>
+<li>iTunesでブックマークを同期する</li>
+</ol>
+</section>
+<script>
+location.hash = "javascript:window.open('http://i-sourceview.appspot.com/?url=' + encodeURIComponent(location.href), '_target')";
+</script>
+</body>
+</html>
