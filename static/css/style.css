@@ -3,7 +3,11 @@
     margin: 0 auto;
 }
 
-h1 {
+.content {
+    margin: 50px 0;
+}
+
+.mod-siteHeader h1 {
     font-family: 'Neuton', serif;
     font-size: 60px;
     margin: 10px 0 0;
@@ -12,74 +16,76 @@ h1 {
     text-align: center;
 }
 
-h1 a {
+.mod-siteHeader h1 a {
     color: #881280;
     text-decoration: none;
 }
 
-h1:before {
+.mod-siteHeader h1:before {
     content: '<';
 }
-h1:after {
+.mod-siteHeader h1:after {
     content: ' />';
 }
 
-h2 {
-    border-bottom: 2px solid #333;
-    text-shadow: #CCC 3px 3px 3px;
-    padding: 5px 10px;
-}
-
-section {
-    margin-bottom: 50px;
-}
-
-ol li {
-    margin: 10px 0;
-}
-
-.description {
+.mod-siteHeader .description {
     margin: 0;
     padding: 0;
     color: #333;
     text-align: center;
 }
 
-.error {
-    color: #C00;
-    text-align: center;
+.mod-box  {
+    margin-bottom: 50px;
 }
 
-form {
+.mod-box h2 {
+    border-bottom: 2px solid #333;
+    text-shadow: #CCC 3px 3px 3px;
+    padding: 5px 10px;
+}
+
+.mod-box ol li {
+    margin: 10px 0;
+}
+
+.mod-inputForm {
     text-align: center;
     margin: 0;
     padding: 0;
 }
 
-#content {
-    margin: 50px 0;
-}
-
-input[type="text"] {
+.mod-inputForm input[type="text"] {
     font-size: 25px;
     width: 600px;
     text-align: center;
 }
 
-button {
+.mod-inputForm button {
     padding: 10px 100px;
     font-size: 22px;
 }
 
-nav ul {
+.mod-navi ul {
     list-style: circle;
     padding: 0 0 0 60px;
     margin: 50px 0 0 0;
     font-size: 30px;
 }
 
-nav ul li {
+.mod-navi ul li {
     margin: 10px 0;
+}
+
+.mod-error h2 {
+    color: #C00;
+    font-weight: bold;
+    font-size: 30px;
+    border-bottom: 3px solid #C00;
+}
+
+.mod-error p {
+    font-size: 25px;
 }
 
 .mod-aboutList dt {

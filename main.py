@@ -9,7 +9,12 @@ from google.appengine.ext.webapp import template
 class MainPage(webapp.RequestHandler):
     def get(self):
         params = self.__get_params()
-        tpl = 'code.html' if 'source' in params else 'index.html'
+        if 'source' in 'params':
+            tpl = 'code.html'
+        elif 'error' in params:
+            tpl = 'error.html'
+        else:
+            tpl = 'index.html'
         path = os.path.join(os.path.dirname(__file__), tpl)
         self.response.out.write(template.render(path, params))
 
