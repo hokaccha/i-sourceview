@@ -81,3 +81,17 @@ nav ul {
 nav ul li {
     margin: 10px 0;
 }
+
+.mod-aboutList dt {
+    font-size: 20px;
+    border-left: 5px solid #333;
+    padding: 3px 10px;
+    color: #333;
+    font-weight: bold;
+}
+
+.mod-aboutList dd {
+    padding: 20px 0 50px 20px;
+    margin: 0;
+    font-size: 18px;
+}

@@ -62,10 +62,16 @@ class Bookmarklet(webapp.RequestHandler):
     def get(self):
         path = os.path.join(os.path.dirname(__file__), 'bm.html')
         self.response.out.write(template.render(path, {}))
+
+class About(webapp.RequestHandler):
+    def get(self):
+        path = os.path.join(os.path.dirname(__file__), 'about.html')
+        self.response.out.write(template.render(path, {}))
         
 application = webapp.WSGIApplication([
     ('/', MainPage),
-    ('/bm', Bookmarklet)
+    ('/bm', Bookmarklet),
+    ('/about', About),
 ])
 
 def main():
