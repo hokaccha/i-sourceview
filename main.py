@@ -9,7 +9,7 @@ from google.appengine.ext.webapp import template
 class MainPage(webapp.RequestHandler):
     def get(self):
         params = self.__get_params()
-        if 'source' in 'params':
+        if 'source' in params:
             tpl = 'code.html'
         elif 'error' in params:
             tpl = 'error.html'
