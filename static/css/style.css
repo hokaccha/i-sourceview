@@ -1,12 +1,12 @@
 .wrapper {
-    width: 600px;
+    width: 680px;
     margin: 0 auto;
 }
 
 h1 {
     font-family: 'Neuton', serif;
     font-size: 60px;
-    margin: 10px 0;
+    margin: 10px 0 0;
     padding: 0;
     color: #881280;
     text-align: center;
@@ -24,8 +24,23 @@ h1:after {
     content: ' />';
 }
 
+h2 {
+    border-bottom: 2px solid #666;
+    text-shadow: #CCC 3px 3px 3px;
+    padding: 5px 10px;
+}
+
+section {
+    margin-bottom: 50px;
+}
+
+ol li {
+    margin: 10px 0;
+}
+
 .description {
-    margin-top: 0;
+    margin: 0;
+    padding: 0;
     color: #333;
     text-align: center;
 }
@@ -37,6 +52,12 @@ h1:after {
 
 form {
     text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+#content {
+    margin: 50px 0;
 }
 
 input[type="text"] {
@@ -51,12 +72,10 @@ button {
 }
 
 nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0;
-    text-align: center;
+    list-style: circle;
+    padding: 0 0 0 60px;
+    margin: 50px 0 0 0;
     font-size: 30px;
-    margin-top: 20px;
 }
 
 nav ul li {

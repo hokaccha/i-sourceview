@@ -1,17 +1,6 @@
-<!DOCTYPE HTML>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>i-sourceview</title>
-    <link  href="//fonts.googleapis.com/css?family=Neuton:regular" rel="stylesheet" type="text/css">
-    <link  href="/static/css/style.css" rel="stylesheet" type="text/css">
-</head>
-<body>
+{% extends 'base.html' %}
 
-<div class="wrapper">
-<h1><a href="/">i-sourceview</a></h1>
-<p class="description">HTML source viewer for iPhone/iPad.</p>
-
+{% block content %}
 <form method="get" action="">
 <p><input type="text" name="url" value="{{ url }}" placeholder="input URL here."></p>
 <p><button>source view</button></p>
@@ -23,7 +12,4 @@
 <li><a href="/about">About</a></li>
 </ul>
 </nav>
-</div>
-
-</body>
-</html>
+{% endblock %}

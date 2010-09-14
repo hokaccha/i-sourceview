@@ -1,12 +1,6 @@
-<!DOCTYPE HTML>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>i-sourceview</title>
-</head>
-<body>
-<h1>i-sourceview Bookmarklet</h1>
+{% extends 'base.html' %}
 
+{% block content %}
 <section>
 <h2>iPhone/iPadで登録</h2>
 <ol>
@@ -26,5 +20,5 @@
 <script>
 location.hash = "javascript:window.open('http://i-sourceview.appspot.com/?url=' + encodeURIComponent(location.href), '_target')";
 </script>
-</body>
-</html>
+
+{% endblock %}
