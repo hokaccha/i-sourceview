@@ -1,5 +1,10 @@
+body {
+    margin: 0;
+    padding: 0 20px;
+}
+
 .wrapper {
-    width: 640px;
+    width: 600px;
     margin: 0 auto;
 }
 
@@ -35,14 +40,15 @@
     text-align: center;
 }
 
-.mod-box  {
-    margin-bottom: 50px;
-}
-
 .mod-box h2 {
     border-bottom: 2px solid #333;
     text-shadow: #CCC 3px 3px 3px;
     padding: 5px 10px;
+    margin: 10px;
+}
+
+.mod-box ol {
+    padding: 5px 0 50px 60px;
 }
 
 .mod-box ol li {
@@ -57,7 +63,7 @@
 
 .mod-inputForm input[type="text"] {
     font-size: 25px;
-    width: 600px;
+    width: 500px;
     text-align: center;
 }
 
