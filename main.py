@@ -43,7 +43,7 @@ class MainPage(webapp.RequestHandler):
 
         now = int(time.time())
         cached_time = memcache.get(domain)
-        if cached_time:
+        if cached_time and not is_dev_server():
             if now - cached_time > self.REQUEST_INTERVAL:
                 memcache.set(domain, now)
             else:
@@ -102,6 +102,9 @@ def render(response, tpl, params={}):
     tpl_path = os.path.join(os.path.dirname(__file__), 'templates', tpl)
     html = template.render(tpl_path, params)
     response.out.write(html)
+
+def is_dev_server():
+    return os.environ.get('SERVER_SOFTWARE')[:11] == 'Development'
 
 application = webapp.WSGIApplication([
     ('/',      MainPage),
