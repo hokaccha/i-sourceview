@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% setvar bookmarklet "javascript:window.open('http://i-sourceview.appspot.com/?url=' + encodeURIComponent(location.href), '_target')" %}
+
 <section class="mod-box">
 <h2>iPhone/iPadで登録</h2>
 <ol>
@@ -13,16 +15,16 @@
 <h2>PCのSafariで登録してiPhone/iPadと同期</h2>
 <ol>
 <li>以下のリンクをPCのSafariでブックマークする<br />
-<a href="javascript:window.open('http://i-sourceview.appspot.com/?url=' + encodeURIComponent(location.href), '_target')" onclick="alert('右クリックで登録するか、ツールバーにドラッグしてブックマークしてください。');return false;">i-sourceview bookmarklet</a></li>
+<a href="{{ bookmarklet }}" onclick="alert('右クリックで登録するか、ツールバーにドラッグしてブックマークしてください。');return false;">i-sourceview bookmarklet</a></li>
 <li>iTunesでブックマークを同期する</li>
 </ol>
 </section>
 <script>
 if (history.replaceState) {
-    history.replaceState('', '', "#javascript:window.open('http://i-sourceview.appspot.com/?url=' + encodeURIComponent(location.href), '_target')");
+    history.replaceState('', '', "#{{ bookmarklet }}");
 }
 else {
-    location.hash = "javascript:window.open('http://i-sourceview.appspot.com/?url=' + encodeURIComponent(location.href), '_target')";
+    location.hash = "{{ bookmarklet }}";
 }
 </script>
 

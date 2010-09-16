@@ -66,13 +66,13 @@ class MainPage(webapp.RequestHandler):
 class Bookmarklet(webapp.RequestHandler):
     def get(self):
         path = os.path.join(os.path.dirname(__file__), 'bm.html')
-        self.response.out.write(template.render(path, {}))
+        self.response.out.write(template.render(path, {'foo':'bar'}))
 
 class About(webapp.RequestHandler):
     def get(self):
         path = os.path.join(os.path.dirname(__file__), 'about.html')
         self.response.out.write(template.render(path, {}))
-        
+
 application = webapp.WSGIApplication([
     ('/', MainPage),
     ('/bm', Bookmarklet),
@@ -81,7 +81,9 @@ application = webapp.WSGIApplication([
 
 def main():
     logging.getLogger().setLevel(logging.DEBUG)
+    webapp.template.register_template_library('setvar')
     run_wsgi_app(application)
 
+        
 if __name__ == "__main__":
     main()
