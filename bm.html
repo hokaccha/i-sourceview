@@ -18,7 +18,12 @@
 </ol>
 </section>
 <script>
-location.hash = "javascript:window.open('http://i-sourceview.appspot.com/?url=' + encodeURIComponent(location.href), '_target')";
+if (history.replaceState) {
+    history.replaceState('', '', "#javascript:window.open('http://i-sourceview.appspot.com/?url=' + encodeURIComponent(location.href), '_target')");
+}
+else {
+    location.hash = "javascript:window.open('http://i-sourceview.appspot.com/?url=' + encodeURIComponent(location.href), '_target')";
+}
 </script>
 
 {% endblock %}
