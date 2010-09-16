@@ -1,12 +1,16 @@
-import os, sys, urllib2, logging
+import os, sys, urllib2, logging, time
+from urlparse import urlparse
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import HtmlFormatter
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext.webapp import template
+from google.appengine.api import memcache
 
 class MainPage(webapp.RequestHandler):
+    REQUEST_INTERVAL = 3
+
     def get(self):
         url = self.request.get('url')
         params = {}
@@ -32,9 +36,23 @@ class MainPage(webapp.RequestHandler):
             'line_number': line_number
         }
 
-    @staticmethod
-    def __request(url):
+    def __request(self, url):
+        domain = self.__get_domain(url)
+        if not domain:
+            raise RequestError('"%s" is invalid URI' % url)
+
+        now = int(time.time())
+        cached_time = memcache.get(domain)
+        if cached_time:
+            if now - cached_time > self.REQUEST_INTERVAL:
+                memcache.set(domain, now)
+            else:
+                raise RequestError('Too many request same domain.')
+        else:
+            memcache.set(domain, now)
+
         response = urllib2.urlopen(url)
+
         return response
 
     @staticmethod
@@ -61,8 +79,9 @@ class MainPage(webapp.RequestHandler):
 
         return '\n'.join( map(f, nums) )
 
-    def __get_domain():
-        pass
+    @staticmethod
+    def __get_domain(url):
+        return urlparse(url).netloc
 
 class Bookmarklet(webapp.RequestHandler):
     def get(self):
@@ -71,6 +90,12 @@ class Bookmarklet(webapp.RequestHandler):
 class About(webapp.RequestHandler):
     def get(self):
         render(self.response, 'about.html')
+
+class RequestError(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return str(self.value)
 
 def render(response, tpl, params={}):
     template.register_template_library('setvar')
