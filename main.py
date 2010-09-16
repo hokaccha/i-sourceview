@@ -1,4 +1,4 @@
-import os, sys, urllib2, logging, time
+import os, sys, urllib2, time
 from urlparse import urlparse
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
@@ -110,7 +110,6 @@ application = webapp.WSGIApplication([
 ])
 
 def main():
-    logging.getLogger().setLevel(logging.DEBUG)
     run_wsgi_app(application)
 
         
