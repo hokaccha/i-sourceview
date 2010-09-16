@@ -8,59 +8,61 @@ from google.appengine.ext.webapp import template
 
 class MainPage(webapp.RequestHandler):
     def get(self):
-        params = self.__get_params()
-        if 'source' in params:
-            tpl = 'code.html'
-        elif 'error' in params:
-            tpl = 'error.html'
+        url = self.request.get('url')
+        params = {}
+        if url:
+            params = self.__get_params(url) or {}
+            tpl = 'code.html' if 'formatted_html' in params else 'error.html'
         else:
             tpl = 'index.html'
+
         render(self.response, tpl, params)
 
-    def __get_params(self):
-        params = dict()
-
-        # get url from query
-        url = params['url'] = self.request.get('url')
-        if not url: return params
-
-        # http request
+    def __get_params(self, url):
         try:
-            res = urllib2.urlopen(url)
+            response = self.__request(url)
+            html = self.__encode(response.read())
+            formatted_html = self.__format_html(html)
+            line_number = self.__line_number(html)
         except:
-            params['error'] = sys.exc_info()[1]
-            return params
+            return { 'error':  sys.exc_info()[1] }
 
-        # encodeing
-        html = ''
-        res_body = res.read()
-        for charset in ['shift_jis', 'euc-jp', 'utf-8']:
-            try:
-                html = res_body.decode(charset)
-                break
-            except:
-                pass
-        if not html:
-            params['error'] = sys.exc_info()[1]
-            return params
-
-        # set highlight
-        lexer = get_lexer_by_name('html')
-        format = HtmlFormatter(nowrap = True)
-        source = map(
-            lambda line: '<span>' + line + '</span>',
-            highlight(html, lexer, format).split('\n')[:-1]
-        )
-        line_number = map(
-            lambda line: '<span>' + str(line) +'</span>',
-            range(1, len(source) + 1)
-        )
-        params = {
-            'source': '\n'.join(source),
-            'line_number': '\n'.join(line_number),
+        return {
+            'formatted_html': formatted_html,
+            'line_number': line_number
         }
 
-        return params
+    @staticmethod
+    def __request(url):
+        response = urllib2.urlopen(url)
+        return response
+
+    @staticmethod
+    def __encode(res_body):
+        for charset in ['utf-8', 'shift_jis', 'euc-jp', 'iso2022-jp']:
+            try: return res_body.decode(charset)
+            except: pass
+
+        raise 'Encoding failed.'
+
+    @staticmethod
+    def __format_html(html):
+        f = lambda line: '<span>' + line + '</span>'
+        lexer = get_lexer_by_name('html')
+        format = HtmlFormatter(nowrap = True)
+        lines = highlight(html, lexer, format).split('\n')[:-1]
+
+        return '\n'.join( map(f, lines) )
+
+    @staticmethod
+    def __line_number(html):
+        f = lambda num: '<span>' + str(num + 1) +'</span>';
+        nums = range( len(html.split('\n')) )
+
+        return '\n'.join( map(f, nums) )
+
+    def __get_domain():
+        pass
 
 class Bookmarklet(webapp.RequestHandler):
     def get(self):
@@ -77,8 +79,8 @@ def render(response, tpl, params={}):
     response.out.write(html)
 
 application = webapp.WSGIApplication([
-    ('/', MainPage),
-    ('/bm', Bookmarklet),
+    ('/',      MainPage),
+    ('/bm',    Bookmarklet),
     ('/about', About),
 ])
 
