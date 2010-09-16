@@ -15,8 +15,7 @@ class MainPage(webapp.RequestHandler):
             tpl = 'error.html'
         else:
             tpl = 'index.html'
-        path = os.path.join(os.path.dirname(__file__), tpl)
-        self.response.out.write(template.render(path, params))
+        render(self.response, tpl, params)
 
     def __get_params(self):
         params = dict()
@@ -65,13 +64,17 @@ class MainPage(webapp.RequestHandler):
 
 class Bookmarklet(webapp.RequestHandler):
     def get(self):
-        path = os.path.join(os.path.dirname(__file__), 'bm.html')
-        self.response.out.write(template.render(path, {'foo':'bar'}))
+        render(self.response, 'bm.html')
 
 class About(webapp.RequestHandler):
     def get(self):
-        path = os.path.join(os.path.dirname(__file__), 'about.html')
-        self.response.out.write(template.render(path, {}))
+        render(self.response, 'about.html')
+
+def render(response, tpl, params={}):
+    template.register_template_library('setvar')
+    tpl_path = os.path.join(os.path.dirname(__file__), 'templates', tpl)
+    html = template.render(tpl_path, params)
+    response.out.write(html)
 
 application = webapp.WSGIApplication([
     ('/', MainPage),
@@ -81,7 +84,6 @@ application = webapp.WSGIApplication([
 
 def main():
     logging.getLogger().setLevel(logging.DEBUG)
-    webapp.template.register_template_library('setvar')
     run_wsgi_app(application)
 
         
