@@ -20,12 +20,7 @@
 </ol>
 </section>
 <script>
-if (history.replaceState) {
-    history.replaceState('', '', "#{{ bookmarklet }}");
-}
-else {
-    location.hash = "{{ bookmarklet }}";
-}
+location.replace("#{{ bookmarklet }}");
 </script>
 
 {% endblock %}
