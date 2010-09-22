@@ -3,15 +3,29 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext.webapp import template
 from isourceview.app import App
+import logging
+logging.getLogger().setLevel(logging.DEBUG)
 
 class MainPage(webapp.RequestHandler):
     def get(self):
         url = self.request.get('url')
         if not url:
-            render(self.response, 'index.html', {})
+            render(self.response, 'index.html')
             return
 
-        app = App(url)
+        app = App(url = url)
+        app.process()
+        if app.error:
+            self.response.set_status(500)
+            render(self.response, 'error.html', {'error': app.error})
+        else:
+            render(self.response, 'code.html', {
+                'formatted_html': App.spanize(app.formatted_html),
+                'line_number':    App.spanize(app.line_number),
+            })
+    def post(self):
+        html = self.request.get('html')
+        app = App(html = html)
         app.process()
         if app.error:
             self.response.set_status(500)

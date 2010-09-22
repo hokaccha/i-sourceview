@@ -11,19 +11,23 @@ from google.appengine.api import memcache
 class App:
     REQUEST_INTERVAL = 3
 
-    def __init__(self, url):
+    def __init__(self, url = '', html = ''):
         self.url = url
+        self.html = html
         self.error = ''
 
     def process(self):
         try:
-            response = self.request()
-            self.row_html = response.read()
-            self.encoded_html = self.__encode(self.row_html)
+            if self.url:
+                response = self.request()
+                raw_html = response.read()
+                html = self.__encode(raw_html)
+            elif self.html:
+                html = self.html
 
             lexer = get_lexer_by_name('html')
             format = HtmlFormatter(nowrap = True)
-            self.formatted_html = highlight(self.encoded_html, lexer, format)
+            self.formatted_html = highlight(html, lexer, format)
             lines = len(self.formatted_html.split('\n')) + 1
             self.line_number = '\n'.join([str(n) for n in range(1, lines)])
         except:
