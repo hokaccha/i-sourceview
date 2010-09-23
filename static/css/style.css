@@ -41,32 +41,39 @@ body {
     font-style: italic;
 }
 
-.mod-box {
-    margin-bottom: 30px;
+.mod-box1 h2 {
+    color: #02340b;
+    text-shadow: #CCC 3px 3px 3px;
+    margin: 10px 0;
+    font-size: 26px;
 }
 
-.mod-box p {
+.mod-box2 {
+    margin: 10px 0;
+    padding-bottom: 30px;
+}
+
+.mod-box2 h3 {
+    border-bottom: 2px solid #666;
+    padding: 5px;
+    color: #333;
+}
+
+.mod-box2 p {
     padding: 0 10px;
     margin: 10px 0;
 }
 
-.mod-box h2 {
-    border-bottom: 2px solid #333;
-    text-shadow: #CCC 3px 3px 3px;
-    padding: 5px 10px;
-    margin: 10px 0;
-}
-
-.mod-box ul {
+.mod-box2 ul {
     padding: 0 10px 0 40px;
     list-style: circle;
 }
 
-.mod-box ol {
+.mod-box2 ol {
     padding: 0 10px 0 40px;
 }
 
-.mod-box li {
+.mod-box2 li {
     margin: 10px 0;
 }
 
@@ -116,4 +123,8 @@ body {
     padding: 20px 0 50px 20px;
     margin: 0;
     font-size: 18px;
+}
+
+.mod-back a:before {
+    content: '<<';
 }

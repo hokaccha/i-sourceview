@@ -2,23 +2,25 @@
 
 {% block content %}
 
-<section class="mod-box">
+<section class="mod-box1">
 <h2>About</h2>
 <p>iPhoneやiPadなどでHTMLのソースを見るためのサービスです。HTMLのソースを取得するのにJSで取得する方法とServer側からHTTPリクエストで取得するする二つの方法を用意しています。</p>
-</section>
 
-<section class="mod-box">
-<h2>JS版</h2>
+<section class="mod-box2">
+<h3>JS版</h3>
 <ul>
+    <li>JSのdocument.documentElement.outerHTMLでHTMLを取得する</li>
     <li>JSでDOMが書き換えた後のソースが取れる</li>
+    <li>XML宣言やDOCTYPE宣言が取れない</li>
     <li>認証がかかっているページも見れる</li>
 </ul>
 <p><a href="/bm_js">JS版Bookmarklet</a></p>
 </section>
 
-<section class="mod-box">
-<h2>Server版</h2>
+<section class="mod-box2">
+<h3>Server版</h3>
 <ul>
+<li>Server側からHTTP RequestでHTMLを取得する</li>
 <li>JSでDOMが書き換えられていない元のソースが取れる</li>
 <li>XML宣言やDOCTYPE宣言なども取れる</li>
 <li>認証がかかっているページを取れない</li>
@@ -26,14 +28,16 @@
 <p><a href="/bm_server">Server版Bookmarklet</a></p>
 </section>
 
-<section class="mod-box">
-<h2>Author</h2>
+<section class="mod-box2">
+<h3>Author</h3>
 <p><a href="http://twitter.com/hokaccha">@hokaccha</a></p>
 </section>
 
-<section class="mod-box">
-<h2>github</h2>
+<section class="mod-box2">
+<h3>github</h3>
 <p><a href="http://github.com/hokaccha/i-sourceview">github: i-sourcview</a></p>
+</section>
+
 </section>
 
 {% endblock %}

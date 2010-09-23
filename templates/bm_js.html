@@ -3,22 +3,30 @@
 {% block content %}
 {% setvar bookmarklet "javascript:window.open('http://i-sourceview.appspot.com/?url=' + encodeURIComponent(location.href), '_target')" %}
 
-<section class="mod-box">
-<h2>iPhone/iPadで登録</h2>
+<section class="mod-box1">
+<h2>JS版Bookmarklet</h2>
+
+<section class="mod-box2">
+<h3>iPhone/iPadで登録</h3>
 <ol>
 <li>このページをブックマークする</li>
-<li>ブックマークの編集機能で、URLの先頭の「http://i-sourceview.appspot.com/bm#」を削除し、「javascript:～」から始まるようにする</li>
+<li>ブックマークの編集機能で、URLの先頭の「http://i-sourceview.appspot.com/bm_js#」を削除し、「javascript:～」から始まるようにする</li>
 </ol>
 </section>
 
-<section class="mod-box">
-<h2>PCのSafariで登録してiPhone/iPadと同期</h2>
+<section class="mod-box2">
+<h3>PCのSafariで登録してiPhone/iPadと同期</h3>
 <ol>
 <li>以下のリンクをPCのSafariでブックマークする<br>
 <a href="{{ bookmarklet }}" onclick="alert('右クリックで登録するか、ツールバーにドラッグしてブックマークしてください。');return false;">i-sourceview(js)</a></li>
 <li>iTunesでブックマークを同期する</li>
 </ol>
 </section>
+
+<p class="mod-back"><a href="/">トップに戻る</a></p>
+
+</section>
+
 <script>
 location.replace("#{{ bookmarklet }}");
 </script>
