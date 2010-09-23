@@ -10,20 +10,18 @@ from google.appengine.api import memcache
 
 class App:
     REQUEST_INTERVAL = 3
+    error = ''
 
-    def __init__(self, url = '', html = ''):
-        self.url = url
-        self.html = html
-        self.error = ''
-
-    def process(self):
+    def process(self, url = '', html = ''):
         try:
-            if self.url:
-                response = self.request()
+            if url:
+                response = self.request(url)
                 raw_html = response.read()
                 html = self.__encode(raw_html)
-            elif self.html:
-                html = self.html
+
+            if not html:
+                self.error = 'Bad Request'
+                return
 
             lexer = get_lexer_by_name('html')
             format = HtmlFormatter(nowrap = True)
@@ -33,10 +31,10 @@ class App:
         except:
             self.error = sys.exc_info()[1]
 
-    def request(self):
-        domain = self.__get_domain(self.url)
+    def request(self, url):
+        domain = self.__get_domain(url)
         if not domain:
-            raise RequestError('"%s" is invalid URI' % self.url)
+            raise RequestError('"%s" is invalid URI' % url)
 
         now = int(time.time())
         cached_time = memcache.get(domain)
@@ -48,7 +46,7 @@ class App:
         else:
             memcache.set(domain, now)
 
-        response = urllib2.urlopen(self.url)
+        response = urllib2.urlopen(url)
 
         return response
 

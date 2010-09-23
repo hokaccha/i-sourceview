@@ -8,32 +8,33 @@ logging.getLogger().setLevel(logging.DEBUG)
 
 class MainPage(webapp.RequestHandler):
     def get(self):
-        url = self.request.get('url')
-        if not url:
-            render(self.response, 'index.html')
-            return
+        render(self.response, 'index.html')
 
-        app = App(url = url)
-        app.process()
-        if app.error:
+class View(webapp.RequestHandler):
+    def __init__(self):
+        self.app = App()
+
+    def get(self):
+        url = self.request.get('url')
+        self.app.process(url = url)
+        if self.app.error:
             self.response.set_status(500)
-            render(self.response, 'error.html', {'error': app.error})
+            render(self.response, 'error.html', {'error': self.app.error})
         else:
-            render(self.response, 'code.html', {
-                'formatted_html': App.spanize(app.formatted_html),
-                'line_number':    App.spanize(app.line_number),
+            render(self.response, 'view.html', {
+                'formatted_html': App.spanize(self.app.formatted_html),
+                'line_number':    App.spanize(self.app.line_number),
             })
     def post(self):
         html = self.request.get('html')
-        app = App(html = html)
-        app.process()
-        if app.error:
+        self.app.process(html = html)
+        if self.app.error:
             self.response.set_status(500)
-            render(self.response, 'error.html', {'error': app.error})
+            render(self.response, 'error.html', {'error': self.app.error})
         else:
-            render(self.response, 'code.html', {
-                'formatted_html': App.spanize(app.formatted_html),
-                'line_number':    App.spanize(app.line_number),
+            render(self.response, 'view.html', {
+                'formatted_html': App.spanize(self.app.formatted_html),
+                'line_number':    App.spanize(self.app.line_number),
             })
 
 class BmJS(webapp.RequestHandler):
@@ -52,6 +53,7 @@ def render(response, tpl, params={}):
 
 application = webapp.WSGIApplication([
     ('/',          MainPage),
+    ('/view',      View),
     ('/bm_js',     BmJS),
     ('/bm_server', BmServer),
 ])
