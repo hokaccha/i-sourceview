@@ -1,15 +1,39 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="get" action="" class="mod-inputForm">
-<p><input type="text" name="url" placeholder="input URL here."></p>
-<p><input type="image" src="/static/img/viewsource.png" alt="view source"></p>
-</form>
 
-<nav class="mod-navi">
+<section class="mod-box">
+<h2>About</h2>
+<p>iPhoneやiPadなどでHTMLのソースを見るためのサービスです。HTMLのソースを取得するのにJSで取得する方法とServer側からHTTPリクエストで取得するする二つの方法を用意しています。</p>
+</section>
+
+<section class="mod-box">
+<h2>JS版</h2>
 <ul>
-<li><a href="/bm">Bookmarklet</a></li>
-<li><a href="/about">About</a></li>
+    <li>JSでDOMが書き換えた後のソースが取れる</li>
+    <li>認証がかかっているページも見れる</li>
 </ul>
-</nav>
+<p><a href="/bm_js">JS版Bookmarklet</a></p>
+</section>
+
+<section class="mod-box">
+<h2>Server版</h2>
+<ul>
+<li>JSでDOMが書き換えられていない元のソースが取れる</li>
+<li>XML宣言やDOCTYPE宣言なども取れる</li>
+<li>認証がかかっているページを取れない</li>
+</ul>
+<p><a href="/bm_server">Server版Bookmarklet</a></p>
+</section>
+
+<section class="mod-box">
+<h2>Author</h2>
+<p><a href="http://twitter.com/hokaccha">@hokaccha</a></p>
+</section>
+
+<section class="mod-box">
+<h2>github</h2>
+<p><a href="http://github.com/hokaccha/i-sourceview">github: i-sourcview</a></p>
+</section>
+
 {% endblock %}

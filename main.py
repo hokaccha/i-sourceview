@@ -36,13 +36,13 @@ class MainPage(webapp.RequestHandler):
                 'line_number':    App.spanize(app.line_number),
             })
 
-class Bookmarklet(webapp.RequestHandler):
+class BmJS(webapp.RequestHandler):
     def get(self):
-        render(self.response, 'bm.html')
+        render(self.response, 'bm_js.html')
 
-class About(webapp.RequestHandler):
+class BmServer(webapp.RequestHandler):
     def get(self):
-        render(self.response, 'about.html')
+        render(self.response, 'bm_server.html')
 
 def render(response, tpl, params={}):
     template.register_template_library('setvar')
@@ -51,9 +51,9 @@ def render(response, tpl, params={}):
     response.out.write(html)
 
 application = webapp.WSGIApplication([
-    ('/',      MainPage),
-    ('/bm',    Bookmarklet),
-    ('/about', About),
+    ('/',          MainPage),
+    ('/bm_js',     BmJS),
+    ('/bm_server', BmServer),
 ])
 
 def main():

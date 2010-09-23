@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% setvar bookmarklet "javascript:(function(){var d,f,t;d=document;f=d.createElement('form');f.target='_blank';f.action='http://localhost:8080/';f.method='post';f.acceptCharset='utf-8';t=d.createElement('textarea');t.value=d.documentElement.outerHTML;t.name='html';f.appendChild(t);f.submit();return false;})()" %}
+
+<section class="mod-box">
+<h2>iPhone/iPadで登録</h2>
+<ol>
+<li>このページをブックマークする</li>
+<li>ブックマークの編集機能で、URLの先頭の「http://i-sourceview.appspot.com/bm#」を削除し、「javascript:～」から始まるようにする</li>
+</ol>
+</section>
+
+<section class="mod-box">
+<h2>PCのSafariで登録してiPhone/iPadと同期</h2>
+<ol>
+<li>以下のリンクをPCのSafariでブックマークする<br />
+<a href="{{ bookmarklet }}" onclick="alert('右クリックで登録するか、ツールバーにドラッグしてブックマークしてください。');return false;">i-sourceview(server)</a></li>
+<li>iTunesでブックマークを同期する</li>
+</ol>
+</section>
+<script>
+location.replace("#{{ bookmarklet }}");
+</script>
+
+{% endblock %}
