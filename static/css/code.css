@@ -1,7 +1,11 @@
+footer, section {
+    display: block;
+}
+
 body {
     margin: 0;
     padding: 0;
-    font-size: 20px;
+    font-size: 24px;
 }
 pre {
     line-height: 1.2;
@@ -34,7 +38,7 @@ div#main {
     display: -webkit-box;
 }
 div#line_number {
-    padding: 5px;
+    padding: 5px 5px 20px 5px;
     text-align: right;
     background: #f0f0f0;
     color: #808080;
