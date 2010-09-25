@@ -2,7 +2,7 @@ import os
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext.webapp import template
-from isourceview.app import App
+import isourceview
 import logging
 logging.getLogger().setLevel(logging.DEBUG)
 
@@ -11,31 +11,35 @@ class MainPage(webapp.RequestHandler):
         render(self.response, 'index.html')
 
 class View(webapp.RequestHandler):
-    def __init__(self):
-        self.app = App()
-
     def get(self):
         url = self.request.get('url')
-        self.app.process(url = url)
-        if self.app.error:
-            self.response.set_status(500)
-            render(self.response, 'error.html', {'error': self.app.error})
-        else:
-            render(self.response, 'view.html', {
-                'formatted_html': App.spanize(self.app.formatted_html),
-                'line_number':    App.spanize(self.app.line_number),
-            })
+        try:
+            html = isourceview.request(url)
+            html = isourceview.convert_html(html)
+            self.__view(html)
+        except isourceview.RequestError, message:
+            self.__error(message, 400)
+        except:
+            self.__error('Internal server error', 500)
+
     def post(self):
         html = self.request.get('html')
-        self.app.process(html = html)
-        if self.app.error:
-            self.response.set_status(500)
-            render(self.response, 'error.html', {'error': self.app.error})
-        else:
-            render(self.response, 'view.html', {
-                'formatted_html': App.spanize(self.app.formatted_html),
-                'line_number':    App.spanize(self.app.line_number),
-            })
+        try:
+            html = isourceview.convert_html(html)
+            self.__view(html) 
+        except:
+            self.__error('Internal server error', 500)
+
+    def __view(self, html):
+        line_number = isourceview.get_line_number(html)
+        render(self.response, 'view.html', {
+            'formatted_html': html,
+            'line_number':    line_number,
+        })
+
+    def __error(self, message, code):
+        self.response.set_status(code)
+        render(self.response, 'error.html', {'error': message})
 
 class BmJS(webapp.RequestHandler):
     def get(self):
