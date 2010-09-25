@@ -49,6 +49,11 @@ class BmServer(webapp.RequestHandler):
     def get(self):
         render(self.response, 'bm_server.html')
 
+class NotFound(webapp.RequestHandler):
+    def get(self):
+        self.error(404)
+        render(self.response, '404.html')
+
 def render(response, tpl, params={}):
     template.register_template_library('setvar')
     tpl_path = os.path.join(os.path.dirname(__file__), 'templates', tpl)
@@ -60,6 +65,7 @@ application = webapp.WSGIApplication([
     ('/view',      View),
     ('/bm_js',     BmJS),
     ('/bm_server', BmServer),
+    ('/.*',        NotFound),
 ])
 
 def main():
