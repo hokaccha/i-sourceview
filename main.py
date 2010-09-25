@@ -1,4 +1,5 @@
 import os
+import urllib2
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext.webapp import template
@@ -18,6 +19,8 @@ class View(webapp.RequestHandler):
             html = isourceview.convert_html(html)
             self.__view(html)
         except isourceview.RequestError, message:
+            self.__error(message, 400)
+        except urllib2.HTTPError, message:
             self.__error(message, 400)
         except:
             self.__error('Internal server error', 500)
