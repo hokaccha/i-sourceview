@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
+{% block title %}i-sourceview(js){% endblock %}
+
 {% block content %}
-{% setvar bookmarklet "javascript:(function(){var d,f,t;d=document;f=d.createElement('form');f.target='_blank';f.action='http://localhost:8080/view';f.method='post';f.acceptCharset='utf-8';t=d.createElement('textarea');t.value=d.documentElement.outerHTML;t.name='html';f.appendChild(t);f.submit();return false;})()" %}
+{% setvar bookmarklet "javascript:(function(){var d,f,t;d=document;f=d.createElement('form');f.target='_blank';f.action='http://i-sourceview.appspot.com/view';f.method='post';f.acceptCharset='utf-8';t=d.createElement('textarea');t.value=d.documentElement.outerHTML;t.name='html';f.appendChild(t);f.submit();return false;})()" %}
 
 <section class="mod-box1">
 <h2>JS版Bookmarklet</h2>

@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}i-sourceview(server){% endblock %}
+
 {% block content %}
 {% setvar bookmarklet "javascript:window.open('http://i-sourceview.appspot.com/view?url=' + encodeURIComponent(location.href), '_target')" %}
 
